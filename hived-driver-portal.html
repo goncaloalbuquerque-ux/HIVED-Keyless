@@ -7,181 +7,54 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #0F1D21;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .app {
-      background: #0F1D21;
-      width: 100%;
-      max-width: 400px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 24px;
-      border-bottom: 0.5px solid rgba(255,255,255,0.08);
-    }
-
-    .logo {
-      font-size: 22px;
-      font-weight: 700;
-      color: #FFBE37;
-      letter-spacing: 2px;
-    }
-
-    .badge {
-      font-size: 11px;
-      color: #BCDEEF;
-      background: rgba(188,222,239,0.08);
-      border: 0.5px solid rgba(188,222,239,0.2);
-      border-radius: 20px;
-      padding: 4px 12px;
-    }
-
+    body { font-family: 'Inter', sans-serif; background: #0F1D21; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .app { background: #0F1D21; width: 100%; max-width: 400px; min-height: 100vh; display: flex; flex-direction: column; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: 0.5px solid rgba(255,255,255,0.08); }
+    .logo { font-size: 22px; font-weight: 700; color: #FFBE37; letter-spacing: 2px; }
+    .badge { font-size: 11px; color: #BCDEEF; background: rgba(188,222,239,0.08); border: 0.5px solid rgba(188,222,239,0.2); border-radius: 20px; padding: 4px 12px; }
     .screen { flex: 1; display: flex; flex-direction: column; }
-
-    .pin-screen {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      gap: 24px;
-    }
-
+    .pin-screen { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; gap: 24px; }
     .pin-title { font-size: 22px; font-weight: 600; color: #fff; text-align: center; }
     .pin-sub { font-size: 14px; color: rgba(255,255,255,0.4); text-align: center; margin-top: -12px; }
-
     .pin-dots { display: flex; gap: 16px; }
-
-    .pin-dot {
-      width: 14px; height: 14px; border-radius: 50%;
-      border: 1.5px solid rgba(255,255,255,0.2);
-      background: transparent;
-      transition: background 0.15s, border-color 0.15s;
-    }
+    .pin-dot { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.2); background: transparent; transition: background 0.15s, border-color 0.15s; }
     .pin-dot.filled { background: #FFBE37; border-color: #FFBE37; }
     .pin-dot.error { background: #e24b4a; border-color: #e24b4a; }
-
     .pin-error { font-size: 13px; color: #e24b4a; min-height: 18px; text-align: center; margin-top: -8px; }
-
     .keypad { display: grid; grid-template-columns: repeat(3, 80px); gap: 12px; }
-
-    .key {
-      width: 80px; height: 60px;
-      border-radius: 12px;
-      border: 1px solid #cccccc;
-      background: #ffffff;
-      color: #0F1D21;
-      font-size: 22px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Inter', sans-serif;
-      transition: background 0.1s, transform 0.1s;
-    }
+    .key { width: 80px; height: 60px; border-radius: 12px; border: 1px solid #cccccc; background: #ffffff; color: #0F1D21; font-size: 22px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; transition: background 0.1s, transform 0.1s; }
     .key:active { background: #f0f0f0; transform: scale(0.95); }
     .key.empty { pointer-events: none; background: transparent; border-color: transparent; }
     .key.del { font-size: 18px; }
-
-    .vehicle-screen {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding: 20px 24px;
-      gap: 18px;
-    }
-
+    .key:disabled { opacity: 0.4; pointer-events: none; }
+    .vehicle-screen { flex: 1; display: flex; flex-direction: column; padding: 20px 24px; gap: 18px; }
     .driver-row { display: flex; align-items: center; gap: 12px; }
-
-    .avatar {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: rgba(255,190,55,0.15);
-      border: 1.5px solid #FFBE37;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 13px; font-weight: 600; color: #FFBE37; flex-shrink: 0;
-    }
-
+    .avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,190,55,0.15); border: 1.5px solid #FFBE37; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
     .driver-name { font-size: 15px; color: #fff; font-weight: 500; }
     .driver-sub { font-size: 12px; color: rgba(255,255,255,0.35); }
-
-    .logout-btn {
-      margin-left: auto; font-size: 12px; color: rgba(255,255,255,0.3);
-      background: none; border: none; cursor: pointer;
-      font-family: 'Inter', sans-serif; padding: 4px 8px;
-    }
+    .logout-btn { margin-left: auto; font-size: 12px; color: rgba(255,255,255,0.3); background: none; border: none; cursor: pointer; font-family: 'Inter', sans-serif; padding: 4px 8px; }
     .logout-btn:hover { color: rgba(255,255,255,0.6); }
-
-    .vehicle-card {
-      background: rgba(255,255,255,0.04);
-      border: 0.5px solid rgba(255,255,255,0.1);
-      border-radius: 14px;
-      padding: 20px;
-    }
-
+    .vehicle-card { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 20px; }
     .vehicle-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
-
-    .vehicle-id { font-size: 26px; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
+    .vehicle-plate { font-size: 26px; font-weight: 700; color: #fff; letter-spacing: 1px; }
     .vehicle-model { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 3px; }
-
-    .status-pill {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 5px 12px; border-radius: 20px;
-      font-size: 12px; font-weight: 500;
-    }
+    .status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; }
     .status-locked { background: rgba(226,75,74,0.12); color: #e24b4a; border: 0.5px solid rgba(226,75,74,0.3); }
     .status-unlocked { background: rgba(255,190,55,0.12); color: #FFBE37; border: 0.5px solid rgba(255,190,55,0.3); }
-
     .status-dot { width: 6px; height: 6px; border-radius: 50%; }
     .status-dot-locked { background: #e24b4a; }
     .status-dot-unlocked { background: #FFBE37; }
-
     .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
-
     .stat { background: rgba(0,0,0,0.2); border-radius: 8px; padding: 10px 12px; }
     .stat-label { font-size: 11px; color: rgba(255,255,255,0.3); margin-bottom: 4px; }
-    .stat-value { font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.8); }
-
+    .stat-value { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.8); }
     .sky-bar { height: 3px; background: #BCDEEF; opacity: 0.15; border-radius: 2px; margin: 0 -20px 16px; }
-
     .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-    .ctrl-btn {
-      padding: 16px; border-radius: 12px; border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      font-size: 15px; font-weight: 600; font-family: 'Inter', sans-serif;
-      background: #ffffff; color: #0F1D21;
-      transition: opacity 0.15s, transform 0.1s;
-      width: 100%;
-    }
+    .ctrl-btn { padding: 16px; border-radius: 12px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; font-weight: 600; font-family: 'Inter', sans-serif; background: #ffffff; color: #0F1D21; transition: opacity 0.15s, transform 0.1s; width: 100%; }
     .ctrl-btn:active { transform: scale(0.97); }
     .ctrl-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
-
-    .toast {
-      position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
-      background: rgba(15,29,33,0.97); border: 0.5px solid rgba(255,190,55,0.4);
-      border-radius: 10px; padding: 12px 20px; font-size: 14px; color: #FFBE37;
-      white-space: nowrap; opacity: 0; transition: opacity 0.2s; pointer-events: none;
-      font-weight: 500; z-index: 999;
-    }
+    .toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); background: rgba(15,29,33,0.97); border: 0.5px solid rgba(255,190,55,0.4); border-radius: 10px; padding: 12px 20px; font-size: 14px; color: #FFBE37; white-space: nowrap; opacity: 0; transition: opacity 0.2s; pointer-events: none; font-weight: 500; z-index: 999; }
     .toast.show { opacity: 1; }
-
-    /* ── EDIT BELOW: Add your drivers here ── */
   </style>
 </head>
 <body>
@@ -195,7 +68,7 @@
     <div class="pin-screen">
       <div style="text-align:center">
         <div class="pin-title">Enter your PIN</div>
-        <div class="pin-sub" style="margin-top:8px">Access your vehicle controls</div>
+        <div class="pin-sub" style="margin-top:8px">Check your email for today's PIN</div>
       </div>
       <div class="pin-dots">
         <div class="pin-dot" id="d0"></div>
@@ -204,7 +77,7 @@
         <div class="pin-dot" id="d3"></div>
       </div>
       <div class="pin-error" id="pin-error"></div>
-      <div class="keypad">
+      <div class="keypad" id="keypad">
         <button class="key" onclick="pressKey('1')">1</button>
         <button class="key" onclick="pressKey('2')">2</button>
         <button class="key" onclick="pressKey('3')">3</button>
@@ -224,17 +97,17 @@
   <div class="screen" id="vehicle-screen" style="display:none">
     <div class="vehicle-screen">
       <div class="driver-row">
-        <div class="avatar" id="driver-avatar">ZT</div>
+        <div class="avatar">🚐</div>
         <div>
-          <div class="driver-name" id="driver-name">Driver</div>
-          <div class="driver-sub" id="driver-vehicle-label">Vehicle</div>
+          <div class="driver-name">Vehicle access</div>
+          <div class="driver-sub" id="driver-vehicle-label">—</div>
         </div>
         <button class="logout-btn" onclick="logout()">Sign out</button>
       </div>
       <div class="vehicle-card">
         <div class="vehicle-header">
           <div>
-            <div class="vehicle-id" id="vehicle-id-label">—</div>
+            <div class="vehicle-plate" id="vehicle-plate-label">—</div>
             <div class="vehicle-model">Electric van · HIVED fleet</div>
           </div>
           <div class="status-pill status-locked" id="status-pill">
@@ -249,12 +122,8 @@
           <div class="stat"><div class="stat-label">Status</div><div class="stat-value" id="stat-status">Locked</div></div>
         </div>
         <div class="controls">
-          <button class="ctrl-btn" id="btn-unlock" onclick="sendCommand('unlock-and-enable-driving')">
-            🔓 Unlock
-          </button>
-          <button class="ctrl-btn" id="btn-lock" onclick="sendCommand('lock-and-disable-driving')">
-            🔒 Lock
-          </button>
+          <button class="ctrl-btn" id="btn-unlock" onclick="sendCommand('unlock-and-enable-driving')">🔓 Unlock</button>
+          <button class="ctrl-btn" id="btn-lock" onclick="sendCommand('lock-and-disable-driving')">🔒 Lock</button>
         </div>
       </div>
     </div>
@@ -264,36 +133,20 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  // ─────────────────────────────────────────
-  // CONFIGURATION — edit these two sections
-  // ─────────────────────────────────────────
+  // ── CONFIG — both webhooks already filled in ──
+  const LOCK_UNLOCK_WEBHOOK  = 'https://hook.eu1.make.com/xtd6bw2er9dnwu5oislst0dcpkr2luz8';
+  const VALIDATE_PIN_WEBHOOK = 'https://hook.eu1.make.com/aeon9bf9y53oha044fk78o2onb4h9243';
 
-  // 1. Your Make webhook URL
-  const MAKE_WEBHOOK = 'https://hook.eu1.make.com/xtd6bw2er9dnwu5oislst0dcpkr2luz8';
-
-  // 2. Driver PIN → vehicle mapping
-  //    Format: 'PIN': { name, initials, vehicleId }
-  //    vehicleId = INVERS vehicle ID (not the reg plate)
-  const DRIVERS = {
-    '1234': { name: 'Zalo Test',    initials: 'ZT', vehicleId: 'C2XQ6' },
-    '5678': { name: 'Test Driver',  initials: 'TD', vehicleId: '5ZRSR' },
-    // Add more drivers here:
-    // '9012': { name: 'Jane Smith', initials: 'JS', vehicleId: 'ABCDE' },
-  };
-
-  // ─────────────────────────────────────────
-  // App logic — no need to edit below
-  // ─────────────────────────────────────────
-
-  let pin = '', currentDriver = null, isLocked = true, isSending = false;
+  let pin = '', currentVehicle = null, isLocked = true, isSending = false, isValidating = false;
 
   function pressKey(k) {
-    if (pin.length >= 4) return;
+    if (pin.length >= 4 || isValidating) return;
     pin += k; updateDots();
-    if (pin.length === 4) setTimeout(checkPin, 120);
+    if (pin.length === 4) setTimeout(validatePin, 150);
   }
 
   function deleteKey() {
+    if (isValidating) return;
     pin = pin.slice(0,-1); updateDots(false);
     document.getElementById('pin-error').textContent = '';
   }
@@ -307,24 +160,52 @@
     }
   }
 
-  function checkPin() {
-    const driver = DRIVERS[pin];
-    if (driver) { currentDriver = driver; showVehicleScreen(); }
-    else {
-      updateDots(true);
-      document.getElementById('pin-error').textContent = 'Incorrect PIN. Try again.';
-      setTimeout(() => { pin = ''; updateDots(); }, 900);
+  function setKeypadDisabled(disabled) {
+    document.querySelectorAll('#keypad .key').forEach(k => k.disabled = disabled);
+  }
+
+  async function validatePin() {
+    isValidating = true;
+    setKeypadDisabled(true);
+    document.getElementById('pin-error').textContent = '';
+    document.querySelector('.pin-sub').textContent = 'Checking…';
+
+    try {
+      const res = await fetch(VALIDATE_PIN_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pin: pin })
+      });
+      const data = await res.json();
+
+      if (data.valid) {
+        currentVehicle = { vehicleId: data.vehicle_id, licensePlate: data.license_plate, recordId: data.record_id };
+        isLocked = (data.lock_status !== 'Unlocked');
+        showVehicleScreen();
+      } else {
+        showPinError('Invalid or expired PIN.');
+      }
+    } catch(e) {
+      showPinError('Connection error. Try again.');
     }
+
+    isValidating = false;
+    setKeypadDisabled(false);
+    document.querySelector('.pin-sub').textContent = "Check your email for today's PIN";
+  }
+
+  function showPinError(msg) {
+    updateDots(true);
+    document.getElementById('pin-error').textContent = msg;
+    setTimeout(() => { pin = ''; updateDots(); }, 900);
   }
 
   function showVehicleScreen() {
     document.getElementById('pin-screen').style.display = 'none';
     document.getElementById('vehicle-screen').style.display = 'flex';
-    document.getElementById('driver-avatar').textContent = currentDriver.initials;
-    document.getElementById('driver-name').textContent = currentDriver.name;
-    document.getElementById('driver-vehicle-label').textContent = 'Vehicle ' + currentDriver.vehicleId;
-    document.getElementById('vehicle-id-label').textContent = currentDriver.vehicleId;
-    isLocked = true; updateStatus();
+    document.getElementById('driver-vehicle-label').textContent = currentVehicle.licensePlate;
+    document.getElementById('vehicle-plate-label').textContent = currentVehicle.licensePlate;
+    updateStatus();
   }
 
   function updateStatus() {
@@ -333,15 +214,11 @@
     const text = document.getElementById('status-text');
     const stat = document.getElementById('stat-status');
     if (isLocked) {
-      pill.className = 'status-pill status-locked';
-      dot.className = 'status-dot status-dot-locked';
-      text.textContent = 'Locked';
-      stat.textContent = 'Locked';
+      pill.className = 'status-pill status-locked'; dot.className = 'status-dot status-dot-locked';
+      text.textContent = 'Locked'; stat.textContent = 'Locked';
     } else {
-      pill.className = 'status-pill status-unlocked';
-      dot.className = 'status-dot status-dot-unlocked';
-      text.textContent = 'Unlocked';
-      stat.textContent = 'Unlocked';
+      pill.className = 'status-pill status-unlocked'; dot.className = 'status-dot status-dot-unlocked';
+      text.textContent = 'Unlocked'; stat.textContent = 'Unlocked';
     }
     document.getElementById('btn-unlock').disabled = !isLocked || isSending;
     document.getElementById('btn-lock').disabled = isLocked || isSending;
@@ -354,10 +231,10 @@
     document.getElementById('btn-lock').disabled = true;
     showToast('Sending command…');
     try {
-      await fetch(MAKE_WEBHOOK, {
+      await fetch(LOCK_UNLOCK_WEBHOOK, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ vehicle_id: currentDriver.vehicleId, command, record_id: '' })
+        body: JSON.stringify({ vehicle_id: currentVehicle.vehicleId, command, record_id: currentVehicle.recordId })
       });
       isLocked = command !== 'unlock-and-enable-driving';
       showToast(isLocked ? '🔒 Vehicle locked' : '🔓 Vehicle unlocked');
@@ -373,7 +250,7 @@
   }
 
   function logout() {
-    pin = ''; currentDriver = null; isLocked = true; isSending = false;
+    pin = ''; currentVehicle = null; isLocked = true; isSending = false;
     document.getElementById('pin-error').textContent = '';
     updateDots();
     document.getElementById('vehicle-screen').style.display = 'none';
