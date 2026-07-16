@@ -173,7 +173,7 @@
     try {
       const res = await fetch(VALIDATE_PIN_WEBHOOK, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ pin: pin })
       });
       const data = await res.json();
@@ -238,7 +238,7 @@
     try {
       await fetch(LOCK_UNLOCK_WEBHOOK, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ vehicle_id: currentVehicle.vehicleId, command, record_id: currentVehicle.recordId })
       });
       isLocked = command !== 'unlock-and-enable-driving';
