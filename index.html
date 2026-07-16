@@ -178,15 +178,14 @@
       });
       const data = await res.json();
 
-      // Empty object {} means no matching PIN found
-      const vehicleId = data['Vehicle ID'];
-      if (vehicleId) {
+      // A valid PIN returns a vehicle_id; blank means no match
+      if (data.vehicle_id) {
         currentVehicle = {
-          vehicleId: vehicleId,
-          licensePlate: data['License Plate'] || '',
-          recordId: ''
+          vehicleId: data.vehicle_id,
+          licensePlate: data.license_plate || '',
+          recordId: data.record_id || ''
         };
-        isLocked = (data['Lock Status'] !== 'Unlocked');
+        isLocked = (data.lock_status !== 'Unlocked');
         showVehicleScreen();
       } else {
         showPinError('Invalid or expired PIN.');
