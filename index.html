@@ -236,11 +236,11 @@
     document.getElementById('btn-lock').disabled = true;
     showToast('Sending command…');
     try {
-      await fetch(LOCK_UNLOCK_WEBHOOK, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify({ vehicle_id: currentVehicle.vehicleId, command, record_id: currentVehicle.recordId })
-      });
+      const lockUrl = LOCK_UNLOCK_WEBHOOK + 
+        '?vehicle_id=' + encodeURIComponent(currentVehicle.vehicleId) + 
+        '&command=' + encodeURIComponent(command) + 
+        '&record_id=' + encodeURIComponent(currentVehicle.recordId || '');
+      await fetch(lockUrl, { method: 'POST' });
       isLocked = command !== 'unlock-and-enable-driving';
       showToast(isLocked ? '🔒 Vehicle locked' : '🔓 Vehicle unlocked');
     } catch(e) { showToast('Connection error — try again'); }
